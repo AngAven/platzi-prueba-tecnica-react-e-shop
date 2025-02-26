@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
+import {useLocalStorage} from "../hooks/useLocalStorage.js"
 
 export const ShoppingCartContext = createContext()
 
@@ -15,6 +16,23 @@ export const ShoppingCartProvider = ({children}) => {
   const [isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen] = useState(false)
   const openCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(true)
   const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false)
+
+    const {
+        item: account,
+        saveItem: setAccount,
+        loading: loadingAccount,
+        error: errorAccount
+    } = useLocalStorage('account_v1', '{}')
+
+    const {
+      item: signOut,
+      saveItem: setSignOut,
+      loading: loadingSignOut,
+      error: errorSignOut
+    } = useLocalStorage('sign-out_v1', false)
+
+    console.log('signOut =>', signOut)
+    console.log('account =>', account)
 
   // Product Detail · Show product
   const [productToShow, setProductToShow] = useState({})
@@ -96,7 +114,11 @@ export const ShoppingCartProvider = ({children}) => {
       setSearchByTitle,
       filteredItems,
       searchByCategory,
-      setSearchByCategory
+      setSearchByCategory,
+        account,
+        setAccount,
+        signOut,
+        setSignOut,
     }}>
       {children}
     </ShoppingCartContext.Provider>
