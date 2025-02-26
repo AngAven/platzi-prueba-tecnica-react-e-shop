@@ -29,6 +29,11 @@ const useLocalStorage = (itemName, initialValue) => {
         setItem(newItem)
     }
 
-    return {item, saveItem, loading, error}
+    return {
+        item, 
+        saveItem, 
+        loading, 
+        error
+    }
 }
 export {useLocalStorage}

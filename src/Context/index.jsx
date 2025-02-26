@@ -115,10 +115,10 @@ export const ShoppingCartProvider = ({children}) => {
       filteredItems,
       searchByCategory,
       setSearchByCategory,
-        account,
-        setAccount,
-        signOut,
-        setSignOut,
+      account,
+      setAccount,
+      signOut,
+      setSignOut,
     }}>
       {children}
     </ShoppingCartContext.Provider>
