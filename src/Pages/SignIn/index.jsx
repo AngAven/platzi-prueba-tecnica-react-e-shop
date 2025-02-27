@@ -1,12 +1,15 @@
-import {useContext, useState} from "react";
-import {Link} from "react-router-dom";
+import {useContext, useRef, useState} from "react";
+import {Link, Navigate} from "react-router-dom";
 import Layout from '../../Components/Layout'
 import {ShoppingCartContext} from "../../Context/index.jsx";
 
 function SignIn() {
     const {
         account,
+        setAccount,
+        setSignOut,
     } = useContext(ShoppingCartContext)
+    const form = useRef(null);
     const [view, setView] = useState('create-user')
     const hasUserAnAccount = Object.keys(account).length !== 0
 
@@ -42,9 +45,66 @@ function SignIn() {
         )
     }
 
-    const renderCreateUser = () => {
-
+    const createAccount = () => {
+        const formData = new FormData(form.current)
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            password: formData.get('password'),
+        }
+        setAccount(data)
     }
+
+    const renderCreateUser = () => {
+        return(
+            <form ref={form} className={'flex flex-col gap-4 w-80'}>
+                <div className={'flex flex-col gap-1'}>
+                    <label htmlFor="name" className={'font-light text-sm'}>Your name:</label>
+                    <input
+                        type="text"
+                        id={'name'}
+                        name={'name'}
+                        defaultValue={account?.name}
+                        placeholder={'Angel Avendaño'}
+                        className={'rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60  focus:outline-none py-2 px-4'}
+                    />
+                </div>
+                <div className={'flex flex-col gap-1'}>
+                    <label htmlFor="email" className={'font-light text-sm'}>Your email:</label>
+                    <input
+                        type="text"
+                        id={'email'}
+                        name={'email'}
+                        defaultValue={account?.email}
+                        placeholder={'hi@gmail.com'}
+                        className={'rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'}
+                    />
+                </div>
+                <div className={'flex flex-col gap-1'}>
+                    <label htmlFor="password" className={'font-light text-sm'}>Your password:</label>
+                    <input
+                        type="password"
+                        placeholder={'*****'}
+                        id={'password'}
+                        name={'password'}
+                        defaultValue={account?.password}
+                        className={'rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/0 focus:outline-none py-2 px-4'}
+                    />
+                </div>
+                <Link to={'/'}>
+                    <button
+                        className={'bg-black text-white rounded-lg py-3 w-full'}
+                        onClick={() => createAccount()}
+                    >
+                        Create
+                    </button>
+
+                </Link>
+            </form>
+        )
+    }
+
+
 
     const renderView = () => view === 'create-user' ? renderCreateUser() : renderLogIn()
 
