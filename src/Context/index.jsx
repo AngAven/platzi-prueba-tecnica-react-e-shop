@@ -22,7 +22,7 @@ export const ShoppingCartProvider = ({children}) => {
         saveItem: setAccount,
         loading: loadingAccount,
         error: errorAccount
-    } = useLocalStorage('account_v1', '{}')
+    } = useLocalStorage('account_v1', {})
 
     const {
       item: signOut,
@@ -30,9 +30,6 @@ export const ShoppingCartProvider = ({children}) => {
       loading: loadingSignOut,
       error: errorSignOut
     } = useLocalStorage('sign-out_v1', false)
-
-    console.log('signOut =>', signOut)
-    console.log('account =>', account)
 
   // Product Detail · Show product
   const [productToShow, setProductToShow] = useState({})
