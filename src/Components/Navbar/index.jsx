@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { ShoppingBagIcon } from '@heroicons/react/24/solid'
+import { ShoppingCartContext } from '../../Context'
 import {ArrowLeftOnRectangleIcon} from "@heroicons/react/24/solid"
 import {ArrowRightOnRectangleIcon} from "@heroicons/react/24/solid"
-import { ShoppingCartContext } from '../../Context'
+import {ShoppingCart} from '../ShopoingCart'
 
 const Navbar = () => {
   const {
@@ -41,7 +41,7 @@ const Navbar = () => {
       return (
           <>
             <li className='text-black/60'>
-              angel@platzi.com
+                {account?.email}
             </li>
             <li>
               <NavLink
@@ -61,9 +61,8 @@ const Navbar = () => {
                 My Account
               </NavLink>
             </li>
-            <li className='flex items-center'>
-              <ShoppingBagIcon className='h-6 w-6 text-black'></ShoppingBagIcon>
-              <div>{cartProducts.length}</div>
+            <li>
+                <ShoppingCart/>
             </li>
             <li>
               <NavLink
