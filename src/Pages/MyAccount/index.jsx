@@ -9,7 +9,7 @@ function MyAccount() {
     } = useContext(ShoppingCartContext)
     const [view, setView] = useState('edit-user-info')
     const form = useRef(null);
-    
+
     const editAccount = () => {
         const formData = new FormData(form.current)
         const data = {
